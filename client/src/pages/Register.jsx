@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -18,43 +19,43 @@ function Register() {
       <Navbar />
 
       {/* Main container */}
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="flex justify-center items-center min-h-screen bg-pure-white">
         {/* Registration form container */}
-        <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
-          <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+        <div className="w-full max-w-md p-6 bg-pure-white border-2 border-cobalt-depth shadow-lg rounded-lg">
+          <h2 className="text-2xl font-bold mb-6 text-center text-cobalt-depth">Register</h2>
           <form onSubmit={handleRegister}>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Username</label>
+              <label className="block text-sm font-medium text-cobalt-depth">Username</label>
               <input
                 type="text"
-                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg"
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-cobalt-depth focus:border-cobalt-depth"
                 placeholder="Enter username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <label className="block text-sm font-medium text-cobalt-depth">Email</label>
               <input
                 type="email"
-                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg"
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-cobalt-depth focus:border-cobalt-depth"
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <label className="block text-sm font-medium text-cobalt-depth">Password</label>
               <input
                 type="password"
-                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg"
+                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-cobalt-depth focus:border-cobalt-depth"
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="mb-4">
-              <span className="block text-sm font-medium text-gray-700">User Type</span>
+              <span className="block text-sm font-medium text-cobalt-depth">User Type</span>
               <div className="flex items-center space-x-6">
                 <label className="flex items-center space-x-2">
                   <input
@@ -63,7 +64,7 @@ function Register() {
                     value="teacher"
                     checked={userType === 'teacher'}
                     onChange={() => setUserType('teacher')}
-                    className="h-4 w-4 text-blue-500"
+                    className="h-4 w-4 text-cobalt-depth"
                   />
                   <span>Teacher</span>
                 </label>
@@ -74,7 +75,7 @@ function Register() {
                     value="student"
                     checked={userType === 'student'}
                     onChange={() => setUserType('student')}
-                    className="h-4 w-4 text-blue-500"
+                    className="h-4 w-4 text-cobalt-depth"
                   />
                   <span>Student</span>
                 </label>
@@ -82,7 +83,7 @@ function Register() {
             </div>
             <button
               type="submit"
-              className="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600"
+              className="w-full py-2 bg-golden-ember text-cobalt-depth font-semibold rounded-lg hover:bg-golden-ember-dark"
             >
               Register
             </button>
@@ -90,13 +91,14 @@ function Register() {
           <div className="mt-4 text-center">
             <p>
               Already have an account?{' '}
-              <Link to="/login" className="text-blue-500 hover:text-blue-700">
+              <Link to="/login" className="text-cobalt-depth hover:text-cobalt-dark">
                 Sign in here
               </Link>
             </p>
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-bold mb-4">About Us</h3>
             <p className="text-gray-400">
-              We are a team of passionate developers creating impactful web solutions.
+              I am a  passionate web developer creating impactful web solutions.
             </p>
           </div>
 
@@ -51,7 +51,7 @@ export default function Footer() {
           {/* Contact Section */}
           <div>
             <h3 className="text-xl font-bold mb-4">Contact</h3>
-            <p className="text-gray-400">Email: example@domain.com</p>
+            <p className="text-gray-400">Email: moreritesh028@gmail.com</p>
             <p className="text-gray-400">Phone: (123) 456-7890</p>
           </div>
         </div>
@@ -59,7 +59,7 @@ export default function Footer() {
         {/* Footer Bottom Section */}
         <div className="mt-8 border-t border-gray-700 pt-4 text-center">
           <p className="text-sm text-gray-400">
-            &copy; 2024 Your Company Name. All rights reserved.
+            &copy; 2024 EduTech. All rights reserved.
           </p>
         </div>
       </div>

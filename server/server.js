@@ -13,7 +13,7 @@ const userModel = require('./Schema');
 // Connect to MongoDB Atlas
 mongoose.connect(mongoURI)
   .then(() => {
-    console.log('Connected to MongoDB Atlas');
+    console.log('Connected to MongoDB Atlas :)');
   })
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
@@ -35,6 +35,46 @@ app.get("/getdata", (req, res) => {
             res.json(err);  // Return error if any
         });
 });
+
+app.post("/register", async (req, res) => {
+  const { username, email, password } = req.body;
+
+  // Check if all fields are provided
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: 'All fields (username, email, password) are required.' });
+  }
+
+  try {
+    // Check if the email already exists
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already in use' });
+    }
+
+    // Create a new user instance
+    const newUser = new userModel({
+      username,
+      email,
+      password,
+    });
+
+    // Save the new user to the database
+    await newUser.save();
+
+    // Return success response
+    res.status(201).json({
+      message: 'User registered successfully',
+      user: {
+        username: newUser.username,
+        email: newUser.email,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;
