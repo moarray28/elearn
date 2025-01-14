@@ -2,25 +2,51 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import axios from 'axios'; // Axios for API calls
 
 function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('student');
-
-  const handleRegister = (e) => {
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Add your registration logic here
+    setLoading(true);
+    setMessage('');
+  
+    try {
+      const response = await axios.post('http://localhost:5000/register', {
+        username,
+        email,
+        password,
+        userType,
+      });
+  
+      setMessage(response.data.message || 'Registration successful!');
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setUserType('student');
+    } catch (error) {
+      const errorMsg =
+        error.response?.data?.message || 'Something went wrong. Please try again.';
+      setMessage(errorMsg);
+    } finally {
+      setLoading(false);
+    }
+
+
   };
+  
+  
 
   return (
     <>
       <Navbar />
-
-      {/* Main container */}
-      <div className="flex justify-center items-center min-h-screen bg-pure-white">
-        {/* Registration form container */}
+      <div className="flex justify-center items-center min-h-screen mx-4 bg-pure-white">
         <div className="w-full max-w-md p-6 bg-pure-white border-2 border-cobalt-depth shadow-lg rounded-lg">
           <h2 className="text-2xl font-bold mb-6 text-center text-cobalt-depth">Register</h2>
           <form onSubmit={handleRegister}>
@@ -84,10 +110,16 @@ function Register() {
             <button
               type="submit"
               className="w-full py-2 bg-golden-ember text-cobalt-depth font-semibold rounded-lg hover:bg-golden-ember-dark"
+              disabled={loading}
             >
-              Register
+              {loading ? 'Registering...' : 'Register'}
             </button>
           </form>
+          {message && (
+            <p className={`mt-4 text-center ${loading ? 'text-gray-500' : 'text-red-500'}`}>
+              {message}
+            </p>
+          )}
           <div className="mt-4 text-center">
             <p>
               Already have an account?{' '}
@@ -98,7 +130,7 @@ function Register() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

@@ -1,25 +1,49 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';  // Assuming you have a Footer component
+import Footer from '../components/Footer';
 
 function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    // Add your sign-in logic here
+    setLoading(true);
+    setMessage('');
+
+    try {
+      const response = await axios.post('http://localhost:5000/signin', {
+        username,
+        password,
+      });
+
+      // If sign-in is successful, route based on user type
+      if (response.data.userType === 'student') {
+        navigate('/student');  // Redirect to student profile page
+      } else if (response.data.userType === 'teacher') {
+        navigate('/teacher');  // Redirect to teacher profile page
+      }
+
+      setMessage(response.data.message);
+      setUsername('');
+      setPassword('');
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <Navbar />
-
-      {/* Main container */}
-      <div className="flex justify-center items-center min-h-screen m-2 bg-pure-white">
-        {/* Sign-In form container */}
-        <div className="w-full max-w-md p-6 bg-pure-white  shadow-2xl border-2 border-cobalt-depth rounded-lg">
+      <div className="flex justify-center items-center min-h-screen mx-4 bg-pure-white">
+        <div className="w-full max-w-md p-6 bg-pure-white shadow-2xl border-2 border-cobalt-depth rounded-lg">
           <h2 className="text-2xl font-bold mb-6 text-center text-cobalt-depth">Sign In</h2>
           <form onSubmit={handleSignIn}>
             <div className="mb-4">
@@ -45,10 +69,16 @@ function SignIn() {
             <button
               type="submit"
               className="w-full py-2 bg-golden-ember text-skyline-blue font-semibold rounded-lg hover:bg-golden-ember-dark"
+              disabled={loading}
             >
-              Sign In
+              {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
+          {message && (
+            <p className={`mt-4 text-center ${loading ? 'text-gray-500' : 'text-red-500'}`}>
+              {message}
+            </p>
+          )}
           <div className="mt-4 text-center">
             <p>
               Don't have an account?{' '}
@@ -59,8 +89,7 @@ function SignIn() {
           </div>
         </div>
       </div>
-
-      <Footer />  {/* Footer component */}
+      <Footer />
     </>
   );
 }

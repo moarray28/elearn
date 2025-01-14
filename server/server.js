@@ -1,9 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();  // Load environment variables
+const cors = require('cors');
+
+const bcrypt = require('bcryptjs');
+
 
 const app = express();
 app.use(express.json());
+
+app.use(cors({
+  origin: 'http://localhost:5173', // Replace with your frontend URL
+  methods: ['GET', 'POST'], // Allowed HTTP methods
+  allowedHeaders: ['Content-Type'], // Allowed headers
+  credentials: true, // If you're using cookies
+}));
 
  // Debugging step
 
@@ -36,45 +47,69 @@ app.get("/getdata", (req, res) => {
         });
 });
 
-app.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
 
-  // Check if all fields are provided
-  if (!username || !email || !password) {
-    return res.status(400).json({ message: 'All fields (username, email, password) are required.' });
+app.post('/register', async (req, res) => {
+  const { username, email, password, userType } = req.body;
+
+  if (!username || !email || !password || !userType) {
+    return res.status(400).json({ message: 'All fields are required (username, email, password, userType).' });
   }
 
   try {
-    // Check if the email already exists
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'Email already in use' });
+      return res.status(400).json({ message: 'Email already in use.' });
     }
 
-    // Create a new user instance
-    const newUser = new userModel({
-      username,
-      email,
-      password,
-    });
-
-    // Save the new user to the database
+    const newUser = new userModel({ username, email, password, userType });
     await newUser.save();
 
-    // Return success response
     res.status(201).json({
-      message: 'User registered successfully',
-      user: {
-        username: newUser.username,
-        email: newUser.email,
-      },
+      message: 'User registered successfully.',
+      user: { username: newUser.username, email: newUser.email, userType: newUser.userType },
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error during registration:', error);
+    res.status(500).json({ message: 'Server error. Please try again later.' });
   }
 });
 
+//not using body parser in the below code 
+
+
+app.post('/signin', async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required.' });
+  }
+
+  try {
+    // Find the user by username
+    const user = await userModel.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid username or password.' });
+    }
+
+    // Compare the entered password with the hashed password in the DB
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid username or password.' });
+    }
+
+    // If everything is valid, send back user data (excluding password)
+    res.status(200).json({
+      message: 'Sign-in successful',
+      userType: user.userType,
+      username: user.username,
+      email: user.email,
+    });
+
+  } catch (error) {
+    console.error('Error during sign-in:', error);
+    res.status(500).json({ message: 'Server error. Please try again later.' });
+  }
+});
 
 // Start the server
 const PORT = process.env.PORT || 5000;
