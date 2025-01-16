@@ -3,7 +3,7 @@ import React from 'react'
 export default function Footer() {
   return (
     <>
-      <footer className="bg-gray-900 text-white py-8 mt-10">
+      <footer className="bg-gray-900 text-white py-8 border-t-4 border-black">
       <div className="max-w-screen-xl mx-auto px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Section */}
@@ -59,7 +59,7 @@ export default function Footer() {
         {/* Footer Bottom Section */}
         <div className="mt-8 border-t border-gray-700 pt-4 text-center">
           <p className="text-sm text-gray-400">
-            &copy; 2024 EduTech. All rights reserved.
+            &copy;  {new Date().getFullYear()} EduTech. All rights reserved.
           </p>
         </div>
       </div>

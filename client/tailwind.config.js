@@ -9,8 +9,8 @@ export default {
       colors: {
         'skyline-blue': '#002F6C',
         'cobalt-depth': '#004F8C',
-        'fresh-teal': '#34d399',
-        'golden-ember': '#D7C14C',
+        'fresh-teal': '#34f399',
+        'golden-ember': '#e6c402',
         'pure-white': '#FFFFFF',
       },
     },

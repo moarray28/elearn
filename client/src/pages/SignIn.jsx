@@ -24,9 +24,9 @@ function SignIn() {
 
       // If sign-in is successful, route based on user type
       if (response.data.userType === 'student') {
-        navigate('/student');  // Redirect to student profile page
+        navigate('/student'); // Redirect to student profile page
       } else if (response.data.userType === 'teacher') {
-        navigate('/teacher');  // Redirect to teacher profile page
+        navigate('/teacher'); // Redirect to teacher profile page
       }
 
       setMessage(response.data.message);
@@ -42,8 +42,9 @@ function SignIn() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center min-h-screen mx-4 bg-pure-white">
-        <div className="w-full max-w-md p-6 bg-pure-white shadow-2xl border-2 border-cobalt-depth rounded-lg">
+      <div className="relative loginimage flex justify-center items-center min-h-screen ">
+        {/* Sign-In Form */}
+        <div className="relative z-10 w-full mx-4 max-w-md p-6 bg-slate-100 rounded-xl shadow-2xl shadow-black">
           <h2 className="text-2xl font-bold mb-6 text-center text-cobalt-depth">Sign In</h2>
           <form onSubmit={handleSignIn}>
             <div className="mb-4">

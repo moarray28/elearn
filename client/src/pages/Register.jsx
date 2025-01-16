@@ -3,20 +3,31 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios'; // Axios for API calls
+import  Lottie  from 'lottie-react'; // Lottie for animations
+import backgroundAnimation from '../animations/background.json'; // Your Lottie animation file
+import { useInView } from 'react-intersection-observer';
 
 function Register() {
+  
+
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('student');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  
+
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Load only once
+    threshold: 0.1, // Load when 10% of the component is visible
+  });
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage('');
-  
+
     try {
       const response = await axios.post('http://localhost:5000/register', {
         username,
@@ -24,7 +35,7 @@ function Register() {
         password,
         userType,
       });
-  
+
       setMessage(response.data.message || 'Registration successful!');
       setUsername('');
       setEmail('');
@@ -37,17 +48,16 @@ function Register() {
     } finally {
       setLoading(false);
     }
-
-
   };
-  
-  
 
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center min-h-screen mx-4 bg-pure-white">
-        <div className="w-full max-w-md p-6 bg-pure-white border-2 border-cobalt-depth shadow-lg rounded-lg">
+      <div className="relative min-h-screen loginimage flex items-center justify-center">
+        {/* Lottie Animation */}
+         
+
+        <div className="relative z-10 w-full mx-4 max-w-md p-6 bg-slate-100 rounded-xl  shadow-2xl shadow-black">
           <h2 className="text-2xl font-bold mb-6 text-center text-cobalt-depth">Register</h2>
           <form onSubmit={handleRegister}>
             <div className="mb-4">
@@ -129,7 +139,8 @@ function Register() {
             </p>
           </div>
         </div>
-      </div>
+        </div>
+      
       <Footer />
     </>
   );

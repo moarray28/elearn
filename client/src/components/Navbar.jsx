@@ -9,7 +9,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="overflow-y-auto bg-pure-white sticky top-0 z-50">
+    <div className="overflow-y-auto bg-pure-white sticky top-0 z-50 border-b-2 border-slate-950">
       <nav className="border-gray-200 bg-fresh-teal shadow-md">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           {/* Logo / Brand */}
