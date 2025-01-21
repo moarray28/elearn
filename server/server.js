@@ -4,13 +4,13 @@ require('dotenv').config();  // Load environment variables
 const cors = require('cors');
 
 const bcrypt = require('bcryptjs');
-
+const frontend = process.env.VITE_FRONTEND_URL;
 
 const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Replace with your frontend URL
+  origin: frontend, // Replace with your frontend URL
   methods: ['GET', 'POST'], // Allowed HTTP methods
   allowedHeaders: ['Content-Type'], // Allowed headers
   credentials: true, // If you're using cookies
