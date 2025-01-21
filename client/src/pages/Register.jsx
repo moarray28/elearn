@@ -17,11 +17,9 @@ function Register() {
   const [userType, setUserType] = useState('student');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-  const { ref, inView } = useInView({
-    triggerOnce: true, // Load only once
-    threshold: 0.1, // Load when 10% of the component is visible
-  });
+   
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -29,7 +27,7 @@ function Register() {
     setMessage('');
 
     try {
-      const response = await axios.post('http://localhost:5000/register', {
+      const response = await axios.post(`${backendUrl}/register`, {
         username,
         email,
         password,
