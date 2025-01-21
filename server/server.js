@@ -10,12 +10,10 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: frontend, // Replace with your frontend URL
-  methods: ['GET', 'POST'], // Allowed HTTP methods
-  allowedHeaders: ['Content-Type'], // Allowed headers
-  credentials: true, // If you're using cookies
+  origin: frontend || '*',  // Allow requests from this origin
+  methods: ["POST", "GET", "DELETE", "PUT"], // Allow these HTTP methods
+  credentials: true
 }));
-
  // Debugging step
 
 const mongoURI = process.env.MONGO_URI;
