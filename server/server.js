@@ -35,6 +35,10 @@ app.use(express.json());
 
 // Example route
  
+app.get('/', (req, res) => {
+  res.json({ message: 'Server is running perfectly!' });
+});
+
 
 app.get("/getdata", (req, res) => {
     userModel.find({})
