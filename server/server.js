@@ -118,7 +118,7 @@ app.post('/signin', async (req, res) => {
         username: user.username,
         userType: user.userType,
       },
-      process.env.JWT_SECRET, // Secret key for signing the token
+      process.env.JWT_SECRET, 
       { expiresIn: '1h' }     // Token expiration time (e.g., 1 hour)
     );
 
