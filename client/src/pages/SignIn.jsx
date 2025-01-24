@@ -11,26 +11,30 @@ function SignIn() {
   const [message, setMessage] = useState('');
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
-
   const handleSignIn = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage('');
-
+  
     try {
       const response = await axios.post(`${backendUrl}/signin`, {
         username,
         password,
       });
-
-      // If sign-in is successful, route based on user type
-      if (response.data.userType === 'student') {
+  
+      const { token, userType, message } = response.data;
+  
+      // Store the token in localStorage (or sessionStorage for session-based storage)
+      localStorage.setItem('token', token);
+  
+      // Redirect based on user type
+      if (userType === 'student') {
         navigate('/student'); // Redirect to student profile page
-      } else if (response.data.userType === 'teacher') {
+      } else if (userType === 'teacher') {
         navigate('/teacher'); // Redirect to teacher profile page
       }
-
-      setMessage(response.data.message);
+  
+      setMessage(message);
       setUsername('');
       setPassword('');
     } catch (error) {
@@ -39,8 +43,7 @@ function SignIn() {
       setLoading(false);
     }
   };
-
-  return (
+    return (
     <>
       <Navbar />
       <div className="relative loginimage flex justify-center items-center min-h-screen ">
