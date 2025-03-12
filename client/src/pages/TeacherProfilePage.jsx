@@ -84,17 +84,23 @@ const TeacherProfilePage = () => {
             </form>
           </div>
 
-          {/* File Upload Section */}
-          <div className="bg-pure-white p-6 rounded-lg  border-2 border-skyline-blue shadow-md">
-            <h2 className="text-2xl font-semibold text-skyline-blue mb-4">Upload Teaching Materials</h2>
+          {/* Assignment Section */}
+          <div className="bg-pure-white p-6 rounded-lg  my-4  border-2 border-skyline-blue shadow-md">
+            <h2 className="text-2xl font-semibold text-skyline-blue mx-auto mb-4">Upload Teaching Materials</h2>
+
+           
+            <input type="text" placeholder="Title" className="text-md placeholder:text-gray-800 border-skyline-blue border-2 rounded-md p-2 h-3/4 w-full mb-3 " />
+
+            <textarea placeholder="Description" className="text-md  placeholder:text-gray-800 border-skyline-blue border-2 rounded-md p-2 h-3/4 w-full mb-3" />
+
 
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Upload Video</label>
+              <label className="block text-sm font-medium  text-gray-700 mb-2">Upload Video</label>
               <input
                 type="file"
                 accept="video/*"
                 onChange={handleVideoUpload}
-                className="block w-full text-sm text-gray-500 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-lg file:bg-cobalt-depth file:text-pure-white"
+                className="block w-full text-sm text-gray-500 file:py-2 file:px-4 file:border-2 file:border-skyline-blue file:rounded-md file:bg-cobalt-depth file:text-pure-white"
               />
               {videoFile && (
                 <div className="mt-4 text-gray-700">
@@ -103,13 +109,16 @@ const TeacherProfilePage = () => {
               )}
             </div>
 
+
+
+
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">Upload PDF</label>
               <input
                 type="file"
                 accept="application/pdf"
                 onChange={handlePdfUpload}
-                className="block w-full text-sm text-gray-500 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-lg file:bg-cobalt-depth file:text-pure-white"
+                className="block w-full text-sm text-gray-500 file:py-2 file:px-4 file:border file:border-skyline-blue file:rounded-md file:bg-cobalt-depth file:text-pure-white"
               />
               {pdfFile && (
                 <div className="mt-4 text-gray-700">
@@ -117,7 +126,45 @@ const TeacherProfilePage = () => {
                 </div>
               )}
             </div>
+
+              <button className="text-md text-skyline-blue border-skyline-blue rounded-md border-2 p-2" >Add Course</button>
+      
+     
           </div>
+
+          <div className="bg-pure-white p-6 rounded-lg my-8  border-2 border-skyline-blue shadow-md">
+            <h2 className="text-2xl font-semibold text-skyline-blue mx-auto mb-4">Add Assignments</h2>
+
+           
+            <input type="text" placeholder="Title" className="text-md placeholder:text-gray-800 border-skyline-blue border-2 rounded-md p-2 h-3/4 w-full mb-3 " />
+
+            <textarea placeholder="Description" className="text-md  placeholder:text-gray-800 border-skyline-blue border-2 rounded-md p-2 h-3/4 w-full mb-3" />
+
+
+
+
+
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Upload PDF</label>
+              <input
+                type="file"
+                accept="application/pdf"
+                onChange={handlePdfUpload}
+                className="block w-full text-sm text-gray-500 file:py-2 file:px-4 file:border file:border-skyline-blue file:rounded-md file:bg-cobalt-depth file:text-pure-white"
+              />
+              {pdfFile && (
+                <div className="mt-4 text-gray-700">
+                  <strong>PDF File:</strong> {pdfFile.name}
+                </div>
+              )}
+            </div>
+
+              <button className="text-md text-skyline-blue border-skyline-blue rounded-md border-2 p-2" >Add Assignments</button>
+  
+          </div>
+
+
+
         </div>
       </div>
 
