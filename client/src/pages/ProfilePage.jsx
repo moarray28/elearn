@@ -18,6 +18,24 @@ const ProfileDetails = () => {
           MCA student
         </p>
       </div>
+
+
+
+      <div className="bg-pure-white p-6 border-2 border-skyline-blue rounded-lg shadow-lg mb-8">
+  <div className="flex justify-between items-start">
+    <div>
+      <h2 className="text-2xl font-semibold text-cobalt-depth">[Idea Topic]</h2>
+      <p className="text-lg text-cobalt-dark">[Short Description]</p>
+    </div>
+    <button className="bg-skyline-blue text-white px-4 py-1 rounded-md hover:bg-blue-700">
+      ▲ Upvote (12)
+    </button>
+  </div>
+  <div className="mt-4 text-sm text-cobalt-dark">
+    Posted by: <strong>Ritesh More</strong>
+  </div>
+</div>
+
     </div>
   );
 };
